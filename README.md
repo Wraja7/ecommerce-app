@@ -20,6 +20,10 @@ Add to cart functionality
 
 Order placement
 
+Stripe Payment gateway integration
+
+Order tracking
+
 Responsive design (mobile & desktop)
 
 🛠️ Admin Features
@@ -31,8 +35,6 @@ Product management (add / update / delete)
 Order management
 
 User management 
-
-Stripe Payment gateway integration
 
 🧰 Tech Stack
 Frontend
