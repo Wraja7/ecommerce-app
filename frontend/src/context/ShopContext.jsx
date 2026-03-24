@@ -16,6 +16,7 @@ const ShopContextProvider = (props) => {
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     const addToCart = async (itemId, size) => {
 
@@ -106,20 +107,18 @@ const ShopContextProvider = (props) => {
         return totalAmount;
     }
 
-    const getProductsData = async () => {
-        try {
-            const response = await axios.get(backendUrl + '/api/product/list')
-            if (response.data.success) {
-                setProducts(response.data.products)
-            } else {
-                toast.error(response.data.message)
-            }
-
-        } catch (error) {
-            console.log(error);
-            toast.error(error.message)
+    
+const getProductsData = async () => {
+    try {
+        const response = await axios.get(backendUrl + '/api/product/list');
+        if (response.data.success) {
+            setProducts(response.data.products);
         }
+    } catch (error) {
+        console.log("Retrying...");
+        setTimeout(getProductsData, 2000);
     }
+}
 
     const getUserCart = async (token) => {
         try {
@@ -146,7 +145,7 @@ const ShopContextProvider = (props) => {
 
     const value = {
         products, currency, delivery_fee, search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount, updateQuantity, getCartAmount, navigate, backendUrl, setToken, token, setCartItems
+        cartItems, addToCart, getCartCount, updateQuantity, getCartAmount, navigate, backendUrl, setToken, token, setCartItems, loading
     }
 
     return (
